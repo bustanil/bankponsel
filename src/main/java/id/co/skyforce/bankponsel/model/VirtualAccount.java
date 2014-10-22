@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="vairtual_account")
+@Table(name="virtual_account")
 public class VirtualAccount {
 	
 	
