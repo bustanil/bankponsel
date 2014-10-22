@@ -4,13 +4,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<ui:composition template="/template/bootstrap.xhtml">
 
-	<ui:define name="content">
+<h:body>
+	<center>
+		<h:dataTable var="user" value="#{userProfileController.users}">
+			<h:column>
+				<f:facet name="header">Nama</f:facet>
+					<h:outputText value="#{user.email}" />
+			</h:column>
+		</h:dataTable>
+	</center>
 
-		<h3>#{dummyController.message}</h3>
+</h:body>
 
-	</ui:define>
 
-</ui:composition>
 </html>

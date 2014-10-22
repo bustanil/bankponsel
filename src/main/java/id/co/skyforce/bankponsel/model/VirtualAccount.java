@@ -1,5 +1,6 @@
 package id.co.skyforce.bankponsel.model;
 
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,8 +35,10 @@ public class VirtualAccount {
 	@JoinColumn(name="id", unique=true)
 	private UserProfile userProfile;
 	
-	@OneToMany(mappedBy="transaction_log")
-	private Set<TransactionLog> transaction_log = new HashSet<>();
+	@OneToMany(mappedBy = "virtualAccount") // default lazy
+	private Set<TransactionLog> transactionLog = new HashSet<>();
+//	@OneToMany(mappedBy="virtual_account")
+//	private Set<TransactionLog> transaction_log = new HashSet<>();
 
 	public String getAccountNo() {
 		return accountNo;

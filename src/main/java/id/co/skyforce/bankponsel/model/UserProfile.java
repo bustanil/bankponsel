@@ -1,5 +1,6 @@
 package id.co.skyforce.bankponsel.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_profile")
-public class UserProfile {
+public class UserProfile implements Serializable{
 
 	@Id
 	@GeneratedValue
