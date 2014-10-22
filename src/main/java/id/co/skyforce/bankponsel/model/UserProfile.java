@@ -9,46 +9,44 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_profile")
+@Table(name = "user_profile")
 public class UserProfile {
 
 	@Id
 	@GeneratedValue
-	@Column(name="id",nullable=false, length=20)
+	@Column(name = "id", nullable = false, length = 20)
 	private Long id;
-	
-	@Column(name="email", nullable=false, length=50)
+
+	@Column(name = "email", nullable = false, length = 50)
 	private String email;
-	
-	@Column(name="mobile_no", nullable=false, length=50)
+
+	@Column(name = "mobile_no", nullable = false, length = 50)
 	private String mobileNo;
-	
-	@Column(name="user_type", nullable=false, length=1)
+
+	@Column(name = "user_type", nullable = false, length = 1)
 	private Character userType;
-	
-	@Column(name="password", nullable=false, length=50)
+
+	@Column(name = "password", nullable = false, length = 50)
 	private String password;
-	
-	@Column(name="first_name", nullable=false, length=50)
+
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
-	
-	@Column(name="last_name", nullable=false, length=50)
+
+	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
-	
-	@Column(name="birth_date", nullable=false)
+
+	@Column(name = "birth_date", nullable = false)
 	private Date birthDate;
-	
-	@Column(name="address_street", nullable=false, length=50)
+
+	@Column(name = "address_street", nullable = false, length = 50)
 	private String addressStreet;
-	
-	@Column(name="address_city", nullable=false, length=50)
+
+	@Column(name = "address_city", nullable = false, length = 50)
 	private String addressCity;
-	
-	@Column(name="address_postal_code", nullable=false, length=50)
+
+	@Column(name = "address_postal_code", nullable = false, length = 50)
 	private String addressPostalCode;
 
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -136,5 +134,5 @@ public class UserProfile {
 	public void setAddressPostalCode(String addressPostalCode) {
 		this.addressPostalCode = addressPostalCode;
 	}
-	
+
 }
