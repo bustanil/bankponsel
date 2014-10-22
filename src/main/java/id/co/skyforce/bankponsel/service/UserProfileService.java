@@ -14,14 +14,25 @@ public class UserProfileService {
 
 	public List<UserProfile> getAll(){
 		Session session = HibernateUtil.openSession();
-		Transaction trx = session.beginTransaction();
 		
 		List<UserProfile> listUser = session.createQuery("from UserProfile").list();
 		
-		trx.commit();
 		session.close();
 		return listUser;
 	}
+	
+	
+	public void insertUser(UserProfile user){
+		Session session = HibernateUtil.openSession();
+		Transaction trx = session.beginTransaction();
+		
+		session.save(user);
+		
+		trx.commit();
+		session.close();
+	}
+	
+	
 	
 	public UserProfileService getUserProfile() {
 		return userProfile;

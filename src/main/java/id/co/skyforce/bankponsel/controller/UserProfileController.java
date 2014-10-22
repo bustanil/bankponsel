@@ -14,78 +14,59 @@ import org.hibernate.Session;
 
 @ManagedBean
 public class UserProfileController {
+	
+	UserProfileService userService = new UserProfileService();
+	UserProfile userProfile = new UserProfile();
+	List<UserProfile> listUser;
+	
+	
+	public UserProfileController() {
+		listUser = new ArrayList<>();
+		userService  = new UserProfileService();
+		userProfile = new UserProfile();
+		listUser = userService.getAll();
+	}
 
-	//public UserProfileController() {
-		//super();
-	//}
+	public String viewUser(){
+		listUser = userService.getAll();
+		return "list";
+	}
 	
-//	UserProfileService userService = new UserProfileService();
-//	UserProfile userProfile = new UserProfile();
-//	List<UserProfile> listUser;
-//	
-//	
-//	public UserProfileController() {
-//		listUser = new ArrayList<>();
-//		userService  = new UserProfileService();
-//		UserProfile userProfile = new UserProfile();
-//		listUser = userService.getAll();
-//	}
-//
-//
-//	public UserProfileService getUserService() {
-//		return userService;
-//	}
-//
-//
-//	public void setUserService(UserProfileService userService) {
-//		this.userService = userService;
-//	}
-//
-//
-//	public UserProfile getUserProfile() {
-//		return userProfile;
-//	}
-//
-//
-//	public void setUserProfile(UserProfile userProfile) {
-//		this.userProfile = userProfile;
-//	}
-//
-//
-//	public List<UserProfile> getListUser() {
-//		return listUser;
-//	}
-//
-//
-//	public void setListUser(List<UserProfile> listUser) {
-//		this.listUser = listUser;
-//	}
+	public String insert(){
+		userService.insertUser(userProfile);
+		
+		listUser = userService.getAll();
+		return "list";
+	}
 	
-	
-private List<UserProfile> users;
-	
-	
-public List<UserProfile> getUsers() {
-	return users;
-}
+	public UserProfileService getUserService() {
+		return userService;
+	}
 
 
-public void setUsers(List<UserProfile> users) {
-	this.users = users;
-}
+	public void setUserService(UserProfileService userService) {
+		this.userService = userService;
+	}
 
 
-public UserProfileController() {
-	Session session = id.co.skyforce.bankponsel.util.HibernateUtil.openSession();
-	
-	Query q = session.createQuery("from UserProfile");
-	users = q.list();
-	
-	session.close();
-	
-}
-	
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
 
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+
+	public List<UserProfile> getListUser() {
+		return listUser;
+	}
+
+
+	public void setListUser(List<UserProfile> listUser) {
+		this.listUser = listUser;
+	}
 	
 
 }
