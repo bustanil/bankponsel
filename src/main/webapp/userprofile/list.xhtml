@@ -7,7 +7,7 @@
 
 <h:body>
 	<center>
-		<h:dataTable var="user" value="#{userProfileController.users}">
+		<h:dataTable var="user" value="#{userProfileController.listUser}">
 			<h:column>
 				<f:facet name="header">Nama</f:facet>
 					<h:outputText value="#{user.email}" />
