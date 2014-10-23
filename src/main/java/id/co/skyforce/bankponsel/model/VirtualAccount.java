@@ -22,8 +22,7 @@ public class VirtualAccount {
 	
 	
 	@Id
-	@GeneratedValue
-	@Column(name="account_no", nullable=true)
+	@Column(name="account_no", nullable=true, length=15)
 	private String accountNo;
 	
 	@Column(name="balance", nullable=false)

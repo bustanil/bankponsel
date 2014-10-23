@@ -33,7 +33,8 @@ public class UserProfileController {
 	}
 	
 	public String insert(){
-		userService.insertUser(userProfile);
+	userService.insertUser(userProfile);
+		
 		
 		listUser = userService.getAll();
 		return "list";

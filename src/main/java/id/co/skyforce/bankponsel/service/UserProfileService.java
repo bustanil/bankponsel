@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 
 public class UserProfileService {
 
-	private UserProfileService userProfile;
+	private UserProfile userProfile;
 	private VirtualAccount virtualAccount;
 
 	public List<UserProfile> getAll(){
@@ -30,15 +30,27 @@ public class UserProfileService {
 		Transaction trx = session.beginTransaction();
 		
 		session.save(user);
-		user = (UserProfile) session.get(UserProfile.class, user.getId());
-	virtualAccount = new VirtualAccount();
-//		virtualAccount.setAccountNo(user.getMobileNo());
-virtualAccount.setBalance(new BigDecimal(0));
-virtualAccount.setUserProfile(user);
-session.save(virtualAccount);
+		userProfile = (UserProfile) session.get(UserProfile.class, user.getId());
+		
+		virtualAccount = new VirtualAccount();
+		virtualAccount.setAccountNo(userProfile.getMobileNo());
+		virtualAccount.setBalance(BigDecimal.ZERO);
+		virtualAccount.setUserProfile(userProfile);
+		
+		session.save(virtualAccount);
 		trx.commit();
 		session.close();
 	}
+	
+//	public void insertUser(VirtualAccount virtual){
+//		Session session = HibernateUtil.openSession();
+//		Transaction trx = session.beginTransaction();
+//		userProfile = new UserProfile();
+//	    virtual.setUserProfile(userProfile);
+//		//session.save(user);
+//		trx.commit();
+//		session.close();
+//	}
 	
 	
 	
@@ -51,11 +63,15 @@ session.save(virtualAccount);
 	}
 
 
-	public UserProfileService getUserProfile() {
+	public UserProfile getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(UserProfileService userProfile) {
+
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
+	
+	
+
 }
