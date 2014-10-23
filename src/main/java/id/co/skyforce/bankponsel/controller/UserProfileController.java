@@ -12,12 +12,12 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-@ManagedBean
+@ManagedBean (name ="userController")
 public class UserProfileController {
-	
-	UserProfileService userService = new UserProfileService();
-	UserProfile userProfile = new UserProfile();
-	List<UserProfile> listUser;
+
+	UserProfile userProfile = new UserProfile();  // model
+	UserProfileService userService = new UserProfileService(); // service
+	List<UserProfile> listUser; // listnya
 	
 	
 	public UserProfileController() {

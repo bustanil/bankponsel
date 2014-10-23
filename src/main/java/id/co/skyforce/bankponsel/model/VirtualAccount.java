@@ -23,17 +23,15 @@ public class VirtualAccount {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="account_no", nullable=false)
+	@Column(name="account_no", nullable=true)
 	private String accountNo;
 	
 	@Column(name="balance", nullable=false)
 	private BigDecimal balance;
 	
-	@Column(name="user_id", nullable=false)
-	private Long userId;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name="user_id")
 	private UserProfile userProfile;
 	
 	@OneToMany(mappedBy = "virtualAccount") // default lazy
@@ -57,13 +55,22 @@ public class VirtualAccount {
 		this.balance = balance;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public UserProfile getUserProfile() {
+		return userProfile;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
+
+	public Set<TransactionLog> getTransactionLog() {
+		return transactionLog;
+	}
+
+	public void setTransactionLog(Set<TransactionLog> transactionLog) {
+		this.transactionLog = transactionLog;
+	}
+
 	
 
 }
