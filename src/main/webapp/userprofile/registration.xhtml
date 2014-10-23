@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>Registration</h:head>
+
+<body>
+	<ui:composition template="/template/bootstrap.xhtml">
+		<ui:define name="panelHeading">
+			Registration Form
+		</ui:define>
+
+		<ui:define name="content">
+			<h:form>
+				<table align="center">
+					<tr>
+						<td><h:outputText value="First Name" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.firstName}" /></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Last Name" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.lastName}" /></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Birth Date [dd-MM-yyyy]" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.birthDate}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:inputText></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="User Type" /></td>
+
+						<td><h:selectOneMenu value="#{customerController.salutation}"
+								required="true" label="salutation">
+								<f:selectItem itemValue="C" itemLabel="Customer" />
+								<f:selectItem itemValue="M" itemLabel="Merchant" />
+							</h:selectOneMenu></td>
+					</tr>
+
+
+					<tr>
+						<td><h:outputText value="Mobile Phone" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.mobileNo}" /></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Email" /></td>
+						<td><h:inputText value="#{userController.userProfile.email}" />
+						</td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Password" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.password}" /></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Address Street" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.addressStreet}" /></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Address City" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.addressCity}" /></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Addres Postalcode" /></td>
+						<td><h:inputText
+								value="#{userController.userProfile.addressPostalCode}" /></td>
+					</tr>
+
+					<tr>
+						<td colspan="2"><h:commandButton value="Save"
+								action="#{userController.insert}" /></td>
+					</tr>
+
+				</table>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</body>
+</html>
