@@ -42,17 +42,6 @@ public class UserProfileService {
 		session.close();
 	}
 	
-//	public void insertUser(VirtualAccount virtual){
-//		Session session = HibernateUtil.openSession();
-//		Transaction trx = session.beginTransaction();
-//		userProfile = new UserProfile();
-//	    virtual.setUserProfile(userProfile);
-//		//session.save(user);
-//		trx.commit();
-//		session.close();
-//	}
-	
-	
 	
 	public VirtualAccount getVirtualAccount() {
 		return virtualAccount;
