@@ -8,18 +8,14 @@
 <body> 
 <h:form>
 		User Account : <h:inputText value="#{transactionController.userAccount}" />
-		Amount : <h:inputText value="#{transactionController.amount}" />
-		<h:commandButton value="Deposit" action="#{transactionController.deposit}" />
+		Name Product : <h:selectOneMenu value="#{transactionController.nameProduct}">
+			<f:selectItem itemValue="" itemLabel="Select Product" />
+			<f:selectItem itemValue="AS 5000" itemLabel="AS 5000"/>
+			<f:selectItem itemValue="AS 10000" itemLabel="AS 10000"/>
+			<f:selectItem itemValue="M3 5000" itemLabel="M3 5000"/>
+		</h:selectOneMenu>
 		
-		
-		<h:outputText value="#{transactionController.userAccount}"  />		
-		<h:outputText value="#{transactionController.transactionDate}" />
-		<h:outputText value="#{transactionController.transactionLog}" />
-		
-
-
-		
-		
+		<h:commandButton value="Purchase" action="#{transactionController.purchase}" />
 </h:form>
 </body> 
 </html>

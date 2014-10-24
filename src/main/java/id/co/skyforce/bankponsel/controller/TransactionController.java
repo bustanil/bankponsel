@@ -1,6 +1,7 @@
 package id.co.skyforce.bankponsel.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import id.co.skyforce.bankponsel.service.TransactionService;
 
@@ -13,8 +14,18 @@ public class TransactionController {
 	private String userAccount ;
 	private BigDecimal amount ;
 	
+	//
 	private String targetAccountNo;
+	private String nameProduct;
 	
+	public String getNameProduct() {
+		return nameProduct;
+	}
+
+	public void setNameProduct(String nameProduct) {
+		this.nameProduct = nameProduct;
+	}
+
 	public String getTargetAccountNo() {
 		return targetAccountNo;
 	}
@@ -22,12 +33,14 @@ public class TransactionController {
 	public void setTargetAccountNo(String targetAccountNo) {
 		this.targetAccountNo = targetAccountNo;
 	}
+	//
 
 	public TransactionController() {
 		transactionService = new TransactionService();
-		this.userAccount = userAccount;
-		this.amount = amount;
-		this.targetAccountNo=targetAccountNo;
+//		this.userAccount = userAccount;
+//		this.amount = amount;
+//		this.targetAccountNo=targetAccountNo;
+		
 	}
 
 	public String deposit(){
@@ -48,6 +61,11 @@ public class TransactionController {
 		return "succes";
 	}
 
+	public String purchase(){
+		transactionService.purchase(nameProduct, userAccount);
+		
+		return "succes";
+	}
 	
 	
 	public TransactionService getTransactionService() {
