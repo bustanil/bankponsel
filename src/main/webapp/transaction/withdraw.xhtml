@@ -8,7 +8,7 @@
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
 		<ui:define name="panelHeading">
-			Transfer
+			Deposit
 		</ui:define>
 		
 		<ui:define name ="content">
@@ -23,25 +23,21 @@
 						<h:inputText value="#{transactionController.userAccount}" />
 					</td>
 				</tr>
+				
 				<tr>
 					<td>
 						<h:outputText value="Amount" />&nbsp;
 					</td>
+					
 					<td>
 						<h:inputText value="#{transactionController.amount}" />
 					</td>
 				</tr>
-				
-				<tr>
-					<td>
-						<h:selectBooleanCheckbox value="" required="true"/> Doing transfer to that account
-					</td>
-				
-				</tr>
 							
 				<tr>
 					<td>
-						<h:commandButton value="Transfer" />
+						<h:commandButton value="Withdraw"
+					action="#{transactionController.withdraw}" />
 					</td>
 				</tr>
 			</table>	

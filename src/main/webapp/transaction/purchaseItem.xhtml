@@ -8,41 +8,25 @@
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
 		<ui:define name="panelHeading">
-			Deposit
-		</ui:define>
-		
-		<ui:define name ="content">
-			<h:form>
+	Purchase	
+	</ui:define>
+
+		<ui:define name="content">
 			<table>
 				<tr>
-					<td>
-						<h:outputText value="Account No" />&nbsp;
-					</td>
-					
-					<td>
-						<h:inputText value="#{transactionController.userAccount}" />
-					</td>
+					<td>Product Name</td>
+					<td><h:inputText value="" readonly="true" /></td>
 				</tr>
-				
-				<tr>
-					<td>
-						<h:outputText value="Amount" />&nbsp;
-					</td>
-					
-					<td>
-						<h:inputText value="#{transactionController.amount}" />
-					</td>
-				</tr>
-							
-				<tr>
-					<td>
-						<h:commandButton value="Deposit" />
-					</td>
-				</tr>
-			</table>	
-			</h:form>
-		</ui:define>
 
+				<tr>
+					<td>Price</td>
+					<td><h:inputText value="" readonly="true" /></td>
+				</tr>
+				<tr>
+					<td><h:commandButton value="Buy" /></td>
+				</tr>
+			</table>
+		</ui:define>
 	</ui:composition>
 </body>
 </html>
