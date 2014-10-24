@@ -13,12 +13,21 @@ public class TransactionController {
 	private String userAccount ;
 	private BigDecimal amount ;
 	
+	private String targetAccountNo;
 	
-	
+	public String getTargetAccountNo() {
+		return targetAccountNo;
+	}
+
+	public void setTargetAccountNo(String targetAccountNo) {
+		this.targetAccountNo = targetAccountNo;
+	}
+
 	public TransactionController() {
 		transactionService = new TransactionService();
 		this.userAccount = userAccount;
 		this.amount = amount;
+		this.targetAccountNo=targetAccountNo;
 	}
 
 	public String deposit(){
@@ -26,7 +35,21 @@ public class TransactionController {
 		
 		return "succes";
 	}
+	
+	public String withdrawl(){
+		transactionService.withdrawl(userAccount, amount);
+		
+		return "succes";
+	}
 
+	public String transfer(){
+		transactionService.transfer(userAccount, targetAccountNo, amount);
+		
+		return "succes";
+	}
+
+	
+	
 	public TransactionService getTransactionService() {
 		return transactionService;
 	}
