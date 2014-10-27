@@ -7,22 +7,35 @@
 <h:head></h:head> 
 <body> 
 
+
 <ui:composition template="/template/bootstrap.xhtml">
 		
 		
 		<ui:define name ="panelHeadingMenu">
+		Feature
 		</ui:define>
 		
 		<ui:define name ="menu">
+		<ul class="list-group">
+
+			<li class="list-group-item">
+			<h:link value="Purchase Item" outcome="/transaction/listItem" />
+			</li>
+		</ul>
 		</ui:define>
+		
 		<ui:define name="panelHeading">
-			Index
+			Customer View
 		</ui:define>
 		<ui:define name ="content">
+		<h3>WELCOME to Bank Ponsel</h3>
 		</ui:define>
 		
 		
 </ui:composition>
+
+
+
 
 </body> 
 </html>

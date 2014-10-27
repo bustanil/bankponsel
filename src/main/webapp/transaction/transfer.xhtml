@@ -7,44 +7,50 @@
 <h:head></h:head>
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
+
+		<ui:define name="panelHeadingMenu">
+		Feature
+		</ui:define>
+
+		<ui:define name="menu">
+			<ul class="list-group">
+				<li class="list-group-item"><h:link value="Transfer"
+						outcome="/transaction/transfer" /></li>
+				<li class="list-group-item"><h:link value="Purchase Item"
+						outcome="/transaction/listItem" /></li>
+			</ul>
+		</ui:define>
+
 		<ui:define name="panelHeading">
 			Transfer
 		</ui:define>
-		
-		<ui:define name ="content">
+
+		<ui:define name="content">
 			<h:form>
-			<table>
-				<tr>
-					<td>
-						<h:outputText value="Account No" />&nbsp;
-					</td>
-					
-					<td>
-						<h:inputText value="#{transactionController.userAccount}" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h:outputText value="Amount" />&nbsp;
-					</td>
-					<td>
-						<h:inputText value="#{transactionController.amount}" />
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						<h:selectBooleanCheckbox value="" required="true"/> Doing transfer to that account
-					</td>
-				
-				</tr>
-							
-				<tr>
-					<td>
-						<h:commandButton value="Transfer" />
-					</td>
-				</tr>
-			</table>	
+
+				<table>
+					<tr>
+						<td><h:outputText value="Account No" />&nbsp;</td>
+
+						<td><h:inputText value="#{transactionController.userAccount}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Amount" />&nbsp;</td>
+						<td><h:inputText value="#{transactionController.amount}" />
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2"><h:selectBooleanCheckbox required="true" />&nbsp;Transfering
+							to other account</td>
+					</tr>
+
+					<tr>
+						<td><h:commandButton value="Transfer"
+								action="#{transactionController.transfer}" /></td>
+					</tr>
+				</table>
 			</h:form>
 		</ui:define>
 

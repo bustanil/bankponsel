@@ -7,28 +7,32 @@
 <h:head></h:head>
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
-
-
-		<ui:define name="panelHeadingMenu">
+		
+		<ui:define name ="panelHeadingMenu">
 		Feature
 		</ui:define>
-
-		<ui:define name="menu">
-			<ul class="list-group">
-				<li class="list-group-item"><h:link value="Deposit"
-						outcome="/transaction/deposit" /></li>
-				<li class="list-group-item"><h:link value="Withdraw"
-						outcome="/transaction/withdraw" /></li>
-			</ul>
+		
+		<ui:define name ="menu">
+		<ul class="list-group">
+			<li class="list-group-item">
+			<h:link value="Deposit" outcome="/transaction/deposit" />
+			</li>
+			<li class="list-group-item">
+			<h:link value="Withdraw" outcome="/transaction/withdraw" />
+			</li>
+		</ul>
 		</ui:define>
-
+		
+		
 		<ui:define name="panelHeading">
-
+			Deposit
 		</ui:define>
-
-		<ui:define name="content">
+		
+		
+		
+		
+		<ui:define name ="content">
 			<h:form>
-			
 			<table>
 				<tr>
 					<td>
@@ -52,13 +56,10 @@
 							
 				<tr>
 					<td>
-						<h:commandButton value="Withdraw"
-					action="#{transactionController.withdrawl}" />
+						<h:commandButton value="Deposit" action="#{transactionController.deposit}"/>
 					</td>
 				</tr>
-				
-			</table>
-			
+			</table>	
 			</h:form>
 		</ui:define>
 

@@ -5,7 +5,6 @@ import java.util.Date;
 
 
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -23,41 +22,47 @@ public class TransactionService {
 
 	 UserProfile userProfile = new UserProfile();
 	 VirtualAccount virtualAccount; 
-
-	public void deposit(String userAccount, BigDecimal amount){
+	 static FacesMessage message;
+	
+	 public void deposit(String userAccount, BigDecimal amount){
 		
 		Session session = HibernateUtil.openSession();
 		Transaction trx = session.beginTransaction();
 		virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, userAccount);
 		
 		
-		if (virtualAccount.getAccountNo() == userAccount) {
-	
-			virtualAccount.setBalance(virtualAccount.getBalance().add(amount));
-			
-			TransactionLog log = new TransactionLog();
-			log.setTransactionDate(new Date());
-			log.setAmount(amount);
-			log.setDbCr('D');
-			log.setVirtualAccount(virtualAccount);
-			session.save(log);
-			
-		}else{
-			// comment
+		if (userAccount == virtualAccount.getAccountNo()) {
+			if (amount.doubleValue() > 0) {
+				
+				virtualAccount.setBalance(virtualAccount.getBalance().add(amount));
+				
+				TransactionLog log = new TransactionLog();
+				log.setTransactionDate(new Date());
+				log.setAmount(amount);
+				log.setDbCr('D');
+				log.setVirtualAccount(virtualAccount);
+				session.save(log);
+				
+			}else{
+				message = new FacesMessage("Deposit Must Greater Than 0");
+				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				
+			}
 		}
 		session.saveOrUpdate(virtualAccount);
 		trx.commit();
 		session.close();
 	}
 	 
-	public static void withdrawl(String accountNo,BigDecimal amount){
+	public String withdrawl(String accountNo,BigDecimal amount){
 		Session session = HibernateUtil.openSession();
 		Transaction trx = session.beginTransaction();
 		VirtualAccount virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, accountNo);
 		
 		if (accountNo == virtualAccount.getAccountNo()) { // Check Account
 			
-			if (virtualAccount.getBalance().doubleValue() > amount.doubleValue()) { // Check Drawing
+			if (virtualAccount.getBalance().doubleValue() > amount.doubleValue() && amount.doubleValue() > 0) { // Check Drawing
 				
 				virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - amount.doubleValue()));
 			
@@ -67,21 +72,27 @@ public class TransactionService {
 				log.setDbCr('C');
 				log.setVirtualAccount(virtualAccount);
 				session.save(log);
+				session.saveOrUpdate(virtualAccount);
+				trx.commit();
+				
+				return "log";
 			}else{
-				FacesMessage message = new FacesMessage("Your Drawing is Too Highest");
+				message = new FacesMessage("Your Withdrawl is Failed");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
 				FacesContext.getCurrentInstance().addMessage(null, message);
+				return "withdraw";
 			}	
 		}
 		else{
 			FacesMessage message = new FacesMessage("Account Number Not Found, Please Cek Your Account !");
 			message.setSeverity(FacesMessage.SEVERITY_INFO);
 			FacesContext.getCurrentInstance().addMessage(null, message);
+		
+			
 		}
 		
-		session.saveOrUpdate(virtualAccount);
-		trx.commit();
 		session.close();
+		return "withdraw";
 	}
 	
 	public static void transfer(String accountNo,String targetAccountNo, BigDecimal amount){
@@ -114,13 +125,13 @@ public class TransactionService {
 				session.save(log);
 		
 			}else{
-				FacesMessage message = new FacesMessage("Your Balance Not Enough ");
+				message = new FacesMessage("Your Balance Not Enough ");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
 				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
 		
 		}else{
-			FacesMessage message = new FacesMessage("Transfer Must Be Member To Member ! ");
+			message = new FacesMessage("Transfer Must Be Member To Member ! ");
 			message.setSeverity(FacesMessage.SEVERITY_INFO);
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
@@ -140,15 +151,12 @@ public class TransactionService {
 		query.setString("name", nameProduct);
 		Product product = (Product) query.uniqueResult();
 		
-		double bayar = 0.00;
-		
-		
+		double bayar = 0;
+	
 		if (virtualAccount.getUserProfile().getUserType().equals('C')) {
 			bayar = product.getPrice().doubleValue() + product.getMargin().doubleValue();
 			virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - bayar));
 		}else if(virtualAccount.getUserProfile().getUserType().equals('M')){
-			//BigDecimal test= new BigDecimal(0.4);
-			//error database || product.getSharePercentage() ga dapat
 			bayar = product.getPrice().doubleValue() + (product.getMargin().multiply( product.getSharePercentage()).doubleValue());
 			virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - bayar ));
 			
@@ -166,6 +174,7 @@ public class TransactionService {
 	}
 	
 
+
 	public UserProfile getUserProfile() {
 		return userProfile;
 	}
@@ -181,5 +190,14 @@ public class TransactionService {
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
+
+	public FacesMessage getMessage() {
+		return message;
+	}
+
+	public void setMessage(FacesMessage message) {
+		this.message = message;
+	}
+	
 	
 }

@@ -18,6 +18,11 @@ public class TransactionController {
 	private String targetAccountNo;
 	private String nameProduct;
 	
+	public void clear(){
+		userAccount = "";
+		amount = null;
+	}
+	
 	public String getNameProduct() {
 		return nameProduct;
 	}
@@ -50,9 +55,9 @@ public class TransactionController {
 	}
 	
 	public String withdrawl(){
-		transactionService.withdrawl(userAccount, amount);
-		
-		return "succes";
+		String withdrawl = transactionService.withdrawl(userAccount, amount);
+		clear();
+		return withdrawl;
 	}
 
 	public String transfer(){
