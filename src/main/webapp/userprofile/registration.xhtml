@@ -38,8 +38,8 @@
 					<tr>
 						<td><h:outputText value="User Type" /></td>
 
-						<td><h:selectOneMenu value="#{customerController.salutation}"
-								required="true" label="salutation">
+						<td><h:selectOneMenu value="#{userController.userProfile.userType}"
+								required="true" label="User Type">
 								<f:selectItem itemValue="C" itemLabel="Customer" />
 								<f:selectItem itemValue="M" itemLabel="Merchant" />
 							</h:selectOneMenu></td>

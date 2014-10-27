@@ -29,10 +29,11 @@
 			<h:form>
 
 				<table>
+					<h:inputHidden value="#{transactionController.userAccount}" converter="javax.faces.Long"/>
 					<tr>
 						<td><h:outputText value="Account No" />&nbsp;</td>
 
-						<td><h:inputText value="#{transactionController.userAccount}" />
+						<td><h:inputText value="#{transactionController.targetAccountNo}" />
 						</td>
 					</tr>
 					<tr>

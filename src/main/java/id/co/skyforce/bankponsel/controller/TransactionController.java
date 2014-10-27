@@ -49,9 +49,9 @@ public class TransactionController {
 	}
 
 	public String deposit(){
-		transactionService.deposit(userAccount, amount);
-		
-		return "succes";
+		String deposit = transactionService.deposit(userAccount, amount);
+		clear();
+		return deposit;
 	}
 	
 	public String withdrawl(){

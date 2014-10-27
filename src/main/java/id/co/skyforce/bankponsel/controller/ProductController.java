@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import id.co.skyforce.bankponsel.model.Product;
 import id.co.skyforce.bankponsel.service.ProductService;
@@ -17,14 +18,15 @@ public class ProductController {
 	List<Product> listProduct;
 
 	public ProductController() {
+
 		listProduct = new ArrayList<>();
 		productService = new ProductService();
 		product = new Product();
-		listProduct = ProductService.getAll();
+		listProduct = productService.getAll();
 	}
-	
-	public String viewProduct(){
-		listProduct = ProductService.getAll();
+
+	public String viewProduct() {
+		listProduct = productService.getAll();
 		return "listItem";
 	}
 
@@ -51,7 +53,5 @@ public class ProductController {
 	public void setListProduct(List<Product> listProduct) {
 		this.listProduct = listProduct;
 	}
-	
-	
 
 }

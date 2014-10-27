@@ -21,7 +21,7 @@
 					</td>
 					
 					<td>
-						<h:inputText value="#{userController.userProfile.email}" />
+						<h:inputText value="#{loginController.email}" />
 					</td>
 				</tr>
 				
@@ -30,13 +30,13 @@
 						<h:outputText value="Password " />&nbsp;
 					</td>
 					<td>
-						<h:inputSecret value="#{userController.userProfile.password}"  label="Password"/>
+						<h:inputSecret value="#{loginController.password}"  label="Password"/>
 					</td>
 				</tr>
 				
 				<tr>
 					<td>
-						<h:commandButton value="save" />
+						<h:commandButton value="save" action="#{loginController.login}" />
 					</td>
 				</tr>	
 			

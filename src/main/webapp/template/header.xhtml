@@ -20,7 +20,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<h:panelGroup rendered="#{customerLogin.loggedIn}">
+					<h:panelGroup rendered="#{loginController.loggedIn}">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">My Account <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
@@ -32,7 +32,7 @@
 								<li class="divider"></li>
 								<li>
 									<h:form style="margin-left: 20px">
-									<h:commandLink action="#{customerLogoutBean.logout}">
+									<h:commandLink action="#loginController.logout}">
 										<span class="glyphicon glyphicon-log-out"
 											style="padding-right: 5px"> </span>Logout
 									</h:commandLink>
@@ -41,8 +41,8 @@
 							</ul>
 						</li>
 					</h:panelGroup>
-					<li><h:link value="Login" outcome="/userprofile/login.xhtml" rendered="#{not customerLogin.loggedIn}"  /></li>
-					<li><h:link value="Register" outcome="/userprofile/registration.xhtml" rendered="#{not customerLogin.loggedIn}"  /></li>
+					<li><h:link value="Login" outcome="/userprofile/login.xhtml" rendered="#{not loginController.loggedIn}"  /></li>
+					<li><h:link value="Register" outcome="/userprofile/registration.xhtml" rendered="#{not loginController.loggedIn}"  /></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

@@ -24,15 +24,24 @@ public class TransactionService {
 	 VirtualAccount virtualAccount; 
 	 static FacesMessage message;
 	
-	 public void deposit(String userAccount, BigDecimal amount){
+	 public String deposit(String userAccount, BigDecimal amount){
 		
 		Session session = HibernateUtil.openSession();
 		Transaction trx = session.beginTransaction();
 		virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, userAccount);
+		session.close();
 		
-		
-		if (userAccount == virtualAccount.getAccountNo()) {
+if (virtualAccount == null) {
+			
+			message = new FacesMessage("Account Number Not Found");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			
+			return "/transaction/deposit";
+		}else{
 			if (amount.doubleValue() > 0) {
+				 session = HibernateUtil.openSession();
+				 trx = session.beginTransaction();
 				
 				virtualAccount.setBalance(virtualAccount.getBalance().add(amount));
 				
@@ -43,26 +52,41 @@ public class TransactionService {
 				log.setVirtualAccount(virtualAccount);
 				session.save(log);
 				
+				session.saveOrUpdate(virtualAccount);
+				trx.commit();
+				session.close();
+				
+				message = new FacesMessage("Deposit Succes");
+				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				
+				return "/transaction/deposit";
 			}else{
 				message = new FacesMessage("Deposit Must Greater Than 0");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
 				FacesContext.getCurrentInstance().addMessage(null, message);
-				
+				return "/transaction/deposit";
 			}
 		}
-		session.saveOrUpdate(virtualAccount);
-		trx.commit();
-		session.close();
+		
 	}
 	 
 	public String withdrawl(String accountNo,BigDecimal amount){
 		Session session = HibernateUtil.openSession();
 		Transaction trx = session.beginTransaction();
 		VirtualAccount virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, accountNo);
-		
-		if (accountNo == virtualAccount.getAccountNo()) { // Check Account
+		session.close();
+		if (virtualAccount == null) {
 			
+			message = new FacesMessage("Account Number Not Found");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			
+			return "/transaction/withdraw";
+		}else{
 			if (virtualAccount.getBalance().doubleValue() > amount.doubleValue() && amount.doubleValue() > 0) { // Check Drawing
+				session = HibernateUtil.openSession();
+				trx = session.beginTransaction();
 				
 				virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - amount.doubleValue()));
 			
@@ -74,25 +98,23 @@ public class TransactionService {
 				session.save(log);
 				session.saveOrUpdate(virtualAccount);
 				trx.commit();
+				session.close();
 				
-				return "log";
+				message = new FacesMessage("Withdraw Success");
+				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return "/transaction/withdraw";
 			}else{
 				message = new FacesMessage("Your Withdrawl is Failed");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
 				FacesContext.getCurrentInstance().addMessage(null, message);
-				return "withdraw";
+				return "/transaction/withdraw";
 			}	
-		}
-		else{
-			FacesMessage message = new FacesMessage("Account Number Not Found, Please Cek Your Account !");
-			message.setSeverity(FacesMessage.SEVERITY_INFO);
-			FacesContext.getCurrentInstance().addMessage(null, message);
 		
-			
 		}
 		
-		session.close();
-		return "withdraw";
+		
+		
 	}
 	
 	public static void transfer(String accountNo,String targetAccountNo, BigDecimal amount){

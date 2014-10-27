@@ -12,62 +12,54 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-@ManagedBean (name ="userController")
+@ManagedBean(name = "userController")
 public class UserProfileController {
 
-	UserProfile userProfile = new UserProfile();  // model
+	UserProfile userProfile = new UserProfile(); // model
 	UserProfileService userService = new UserProfileService(); // service
 	List<UserProfile> listUser; // listnya
-	
-	
+
 	public UserProfileController() {
 		listUser = new ArrayList<>();
-		userService  = new UserProfileService();
+		userService = new UserProfileService();
 		userProfile = new UserProfile();
 		listUser = userService.getAll();
 	}
 
-	public String viewUser(){
+	public String viewUser() {
 		listUser = userService.getAll();
 		return "list";
 	}
-	
-	public String insert(){
-	userService.insertUser(userProfile);
-		
-		
+
+	public String insert() {
+		userService.insertUser(userProfile);
+
 		listUser = userService.getAll();
 		return "list";
 	}
-	
+
 	public UserProfileService getUserService() {
 		return userService;
 	}
-
 
 	public void setUserService(UserProfileService userService) {
 		this.userService = userService;
 	}
 
-
 	public UserProfile getUserProfile() {
 		return userProfile;
 	}
-
 
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
 
-
 	public List<UserProfile> getListUser() {
 		return listUser;
 	}
 
-
 	public void setListUser(List<UserProfile> listUser) {
 		this.listUser = listUser;
 	}
-	
 
 }

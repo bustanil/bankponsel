@@ -33,7 +33,7 @@ public class Product implements Serializable{
 	@Column(name = "margin", nullable = false)
 	private BigDecimal margin;
 
-	@Column(name = "share_percantage", nullable = false)
+	@Column(name = "share_percentage", nullable = false)
 	private BigDecimal sharePercentage;
 	
 	@ManyToOne (fetch = FetchType.LAZY)

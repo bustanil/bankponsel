@@ -29,23 +29,17 @@
 		<ui:define name="content">
 
 			<h:form>
-				<table>
-
-					<tr>
-						<td>Product Name</td>
-						<td><h:outputText value="#{productController.product.name}"
-								readonly="true" /></td>
-					</tr>
-
-					<tr>
-						<td>Price</td>
-						<td><h:outputText value="#{productController.product.price}"
-								readonly="true" /></td>
-					</tr>
-					<tr>
-						<td><h:commandButton value="Buy" /></td>
-					</tr>
-				</table>
+			<ui:repeat var="c" value="#{productController.listProduct}">
+				<h:column>
+					<f:facet name="header">Product Name</f:facet>
+					<h:outputText value="#{c.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Price Product</f:facet>
+					<h:outputText value="#{c.price}" />
+				</h:column>
+			</ui:repeat>	
+				<h:commandButton action="#{transactionController.purchase}" value="Buy" />	
 			</h:form>
 		</ui:define>
 	</ui:composition>
