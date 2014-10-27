@@ -1,0 +1,50 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>Insert User</h:head> 
+<body> 
+	<center> <h3>Form Insert</h3>
+		<h:form>
+		<h:panelGrid columns="2">
+			<h:outputText value="First Name" />
+			<h:inputText value="#{userController.userProfile.firstName}" />
+		
+			<h:outputText value="Last Name" />
+			<h:inputText value="#{userController.userProfile.lastName}" />
+		
+			<h:outputText value="Birth Date" />
+			<h:inputText value="#{userController.userProfile.birthDate}">
+				<f:convertDateTime  pattern="dd-MM-yyyy"/>
+			</h:inputText>
+		
+			<h:outputText value="User Type" />
+			<h:inputText value="#{userController.userProfile.userType}" />
+		
+			<h:outputText value="Mobile Phone" />
+			<h:inputText value="#{userController.userProfile.mobileNo}" />
+		
+			<h:outputText value="Email" />
+			<h:inputText value="#{userController.userProfile.email}" />
+		
+			<h:outputText value="Password" />
+			<h:inputText value="#{userController.userProfile.password}" />
+		
+			<h:outputText value="Address Street" />
+			<h:inputText value="#{userController.userProfile.addressStreet}" />
+		
+			<h:outputText value="Address City" />
+			<h:inputText value="#{userController.userProfile.addressCity}" />
+		
+			<h:outputText value="Addres Postalcode" />
+			<h:inputText value="#{userController.userProfile.addressPostalCode}" />
+			
+			<h:commandButton value="Save" action="#{userController.insert}" />
+		
+		</h:panelGrid>
+		</h:form>
+	</center>
+</body> 
+</html>
