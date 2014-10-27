@@ -7,9 +7,29 @@
 <h:head></h:head>
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
+		
+		<ui:define name ="panelHeadingMenu">
+		Feature
+		</ui:define>
+		
+		<ui:define name ="menu">
+		<ul class="list-group">
+			<li class="list-group-item">
+			<h:link value="Deposit" outcome="/transaction/deposit" />
+			</li>
+			<li class="list-group-item">
+			<h:link value="Withdraw" outcome="/transaction/withdraw" />
+			</li>
+		</ul>
+		</ui:define>
+		
+		
 		<ui:define name="panelHeading">
 			Deposit
 		</ui:define>
+		
+		
+		
 		
 		<ui:define name ="content">
 			<h:form>
@@ -36,7 +56,7 @@
 							
 				<tr>
 					<td>
-						<h:commandButton value="Deposit" />
+						<h:commandButton value="Deposit" action="#{transactionController.deposit}"/>
 					</td>
 				</tr>
 			</table>	

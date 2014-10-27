@@ -6,10 +6,28 @@
 
 <h:head></h:head> 
 <body> 
-<h:form>
-		User Account : <h:inputText value="#{transactionController.userAccount}" />
-		Amount : <h:inputText value="#{transactionController.amount}" />
-		<h:commandButton value="Withdrawl" action="#{transactionController.withdrawl}" />
-</h:form>
+
+<ui:composition template="/template/bootstrap.xhtml">
+		
+		
+		<ui:define name ="panelHeadingMenu">
+		</ui:define>
+		
+		<ui:define name ="menu">
+
+		</ui:define>
+		
+		<ui:define name="panelHeading">
+			Merchant View
+		</ui:define>
+		<ui:define name ="content">
+		<h3>WELCOME to Bank Ponsel</h3>
+		</ui:define>
+		
+		
+</ui:composition>
+
+
+
 </body> 
 </html>

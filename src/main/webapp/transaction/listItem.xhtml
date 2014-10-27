@@ -8,31 +8,47 @@
 <body>
 
 <ui:composition template="/template/bootstrap.xhtml">
+	
+	<ui:define name ="panelHeadingMenu">
+		Feature
+		</ui:define>
+		
+		<ui:define name ="menu">
+		<ul class="list-group">
+			<li class="list-group-item">
+			<h:link value="Transfer" outcome="/transaction/transfer" />
+			</li>
+			<li class="list-group-item">
+			<h:link value="Purchase Item" outcome="/transaction/listItem" />
+			</li>
+		</ul>
+		</ui:define>
+
+
+
 	<ui:define name="panelHeading">
-	List Item	
+	List Purchase Item	
 	</ui:define>
 	
 	<ui:define name="content">
 	<center>
-		<h:dataTable border="1" var="c" value="">
+	
+		<h:dataTable border="1" var="c" value="#{productController.listProduct}">
 			<h:column>
 				<f:facet name="header">Product Name</f:facet>
-				<h:outputText value="" />
+				<h:outputText value="#{c.name}" />
 			</h:column>
 			
 			<h:column>
 				<f:facet name="header">Customer Price</f:facet>
-				<h:outputText value="" />
+				<h:outputText value="#{c.price}" />
 			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Merchant Price</f:facet>
-				<h:outputText value="" />
-			</h:column>
-			
+					
 			<h:column>
 				<f:facet name="header">Action</f:facet>
-				<h:link value="Buy" outcome="purchaseItem" />
+				<h:link value="Buy this item" outcome="purchaseItem" >
+					<f:param name="id" value="#{c.id}"/>
+				</h:link>
 			</h:column>
 		</h:dataTable>
 	</center>

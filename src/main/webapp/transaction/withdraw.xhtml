@@ -7,40 +7,47 @@
 <h:head></h:head>
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
-		<ui:define name="panelHeading">
-			Deposit
+
+
+		<ui:define name="panelHeadingMenu">
+		Feature
 		</ui:define>
-		
-		<ui:define name ="content">
+
+		<ui:define name="menu">
+			<ul class="list-group">
+				<li class="list-group-item"><h:link value="Deposit"
+						outcome="/transaction/deposit" /></li>
+				<li class="list-group-item"><h:link value="Withdraw"
+						outcome="/transaction/withdraw" /></li>
+			</ul>
+		</ui:define>
+
+		<ui:define name="panelHeading">
+			Withdraw
+		</ui:define>
+
+		<ui:define name="content">
 			<h:form>
-			<table>
-				<tr>
-					<td>
-						<h:outputText value="Account No" />&nbsp;
-					</td>
-					
-					<td>
-						<h:inputText value="#{transactionController.userAccount}" />
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						<h:outputText value="Amount" />&nbsp;
-					</td>
-					
-					<td>
-						<h:inputText value="#{transactionController.amount}" />
-					</td>
-				</tr>
-							
-				<tr>
-					<td>
-						<h:commandButton value="Withdraw"
-					action="#{transactionController.withdraw}" />
-					</td>
-				</tr>
-			</table>	
+				<table>
+					<tr>
+						<td><h:outputText value="Account No" />&nbsp;</td>
+
+						<td><h:inputText value="#{transactionController.userAccount}" />
+						</td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Amount" />&nbsp;</td>
+
+						<td><h:inputText value="#{transactionController.amount}" />
+						</td>
+					</tr>
+
+					<tr>
+						<td><h:commandButton value="Withdraw"
+								action="#{transactionController.withdrawl}" /></td>
+					</tr>
+				</table>
 			</h:form>
 		</ui:define>
 

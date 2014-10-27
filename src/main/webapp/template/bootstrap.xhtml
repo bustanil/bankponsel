@@ -14,12 +14,30 @@
 		<ui:include src="/template/header.xhtml" />
 
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<ui:insert name="panelHeadingMenu">
+							
+						</ui:insert>
+					</div>
+				</div>
+				
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<ui:insert name="menu">
+							
 
+						</ui:insert>
+					</div>
+				</div>
+		</div>
+		
+			<div class="col-md-9">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<ui:insert name="panelHeading">
-							<h3>test</h3>
+					
 						</ui:insert>
 					</div>
 				</div>
@@ -27,21 +45,15 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<ui:insert name="content">
-
-							<h3>axaxs</h3>
-							<h3>sadsadsasad</h3>
-							<h3>asdasdsadads</h3>
-
+							
 						</ui:insert>
 					</div>
 				</div>
 			</div>
-		</div>
-
-	
-
-
+		
 	</div>
+	</div>
+	
 	<!-- /container -->
 
 	<ui:include src="/template/footer.xhtml" />

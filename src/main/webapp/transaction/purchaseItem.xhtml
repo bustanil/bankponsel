@@ -7,25 +7,49 @@
 <h:head></h:head>
 <body>
 	<ui:composition template="/template/bootstrap.xhtml">
+
+		<ui:define name="panelHeadingMenu">
+		Feature
+		</ui:define>
+
+		<ui:define name="menu">
+			<ul class="list-group">
+				<li class="list-group-item"><h:link value="Transfer"
+						outcome="/transaction/transfer" /></li>
+				<li class="list-group-item"><h:link value="Purchase Item"
+						outcome="/transaction/listItem" /></li>
+			</ul>
+		</ui:define>
+
+
 		<ui:define name="panelHeading">
-	Purchase	
-	</ui:define>
+			Purchase	
+		</ui:define>
 
 		<ui:define name="content">
-			<table>
-				<tr>
-					<td>Product Name</td>
-					<td><h:inputText value="" readonly="true" /></td>
-				</tr>
 
-				<tr>
-					<td>Price</td>
-					<td><h:inputText value="" readonly="true" /></td>
-				</tr>
-				<tr>
-					<td><h:commandButton value="Buy" /></td>
-				</tr>
-			</table>
+			<h:form>
+				<table>
+
+					<h:inputHidden value="#{productController.product.id}" label="Id"
+						converter="javax.faces.Long" />
+
+					<tr>
+						<td>Product Name</td>
+						<td><h:inputText value="#{productController.product.name}"
+								readonly="true" /></td>
+					</tr>
+
+					<tr>
+						<td>Price</td>
+						<td><h:inputText value="#{productController.product.price}"
+								readonly="true" /></td>
+					</tr>
+					<tr>
+						<td><h:commandButton value="Buy" /></td>
+					</tr>
+				</table>
+			</h:form>
 		</ui:define>
 	</ui:composition>
 </body>

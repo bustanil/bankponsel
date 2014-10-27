@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/template/bootstrap.xhtml">
+		<ui:define name="panelHeading">
+			Login
+		</ui:define>
+		
+		<ui:define name ="content">
+			<h:form>
+			<table>
+				<tr>
+					<td>
+						<h:outputText value="Email" />&nbsp;
+					</td>
+					
+					<td>
+						<h:inputText value="#{userController.userProfile.email}" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<h:outputText value="Password " />&nbsp;
+					</td>
+					<td>
+						<h:inputSecret value="#{userController.userProfile.password}"  label="Password"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<h:commandButton value="save" />
+					</td>
+				</tr>	
+			
+			</table>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

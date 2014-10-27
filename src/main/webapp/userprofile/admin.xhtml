@@ -5,24 +5,36 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
 
 <h:head></h:head> 
-<body> 
+<body>
 
 <ui:composition template="/template/bootstrap.xhtml">
 		
 		
 		<ui:define name ="panelHeadingMenu">
+		Feature
 		</ui:define>
 		
 		<ui:define name ="menu">
+		<ul class="list-group">
+			<li class="list-group-item">
+			<h:link value="Deposit" outcome="/transaction/deposit" />
+			</li>
+			<li class="list-group-item">
+			<h:link value="Withdraw" outcome="/transaction/withdraw" />
+			</li>
+		</ul>
+		
 		</ui:define>
 		<ui:define name="panelHeading">
-			Index
+			ADMIN VIEW
 		</ui:define>
 		<ui:define name ="content">
+		<h3>WELCOME ADMIN</h3>
 		</ui:define>
 		
 		
 </ui:composition>
+
 
 </body> 
 </html>

@@ -6,9 +6,11 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import id.co.skyforce.bankponsel.model.Product;
 import id.co.skyforce.bankponsel.model.TransactionLog;
 import id.co.skyforce.bankponsel.model.UserProfile;
 import id.co.skyforce.bankponsel.model.VirtualAccount;
@@ -17,7 +19,7 @@ import id.co.skyforce.bankponsel.util.HibernateUtil;
 public class TransactionService {
 
 	 UserProfile userProfile = new UserProfile();
-	 VirtualAccount virtualAccount;
+	 VirtualAccount virtualAccount; 
 
 	public void deposit(String userAccount, BigDecimal amount){
 		
@@ -99,6 +101,42 @@ public class TransactionService {
 		session.close();
 	}
 	
+	public void purchase(String nameProduct, String accountNo){
+		Session session = HibernateUtil.openSession();
+		Transaction trx = session.beginTransaction();
+		
+		virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, accountNo);
+		
+		Query query = session.createQuery("from Product p where p.name = :name");
+		query.setString("name", nameProduct);
+		Product product = (Product) query.uniqueResult();
+		
+		double bayar = 0.00;
+		
+		
+		if (virtualAccount.getUserProfile().getUserType().equals('C')) {
+			bayar = product.getPrice().doubleValue() + product.getMargin().doubleValue();
+			virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - bayar));
+		}else if(virtualAccount.getUserProfile().getUserType().equals('M')){
+			//BigDecimal test= new BigDecimal(0.4);
+			//error database || product.getSharePercentage() ga dapat
+			bayar = product.getPrice().doubleValue() + (product.getMargin().multiply( product.getSharePercentage()).doubleValue());
+			virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - bayar ));
+			
+		}
+		TransactionLog log = new TransactionLog();
+		log.setDbCr('C');
+		log.setTransactionDate(new Date());
+		log.setAmount(new BigDecimal(bayar));
+		log.setVirtualAccount(getVirtualAccount());
+		
+		session.save(log);
+		session.saveOrUpdate(virtualAccount);
+		trx.commit();
+		session.close();
+	}
+	
+
 	public UserProfile getUserProfile() {
 		return userProfile;
 	}
@@ -114,5 +152,5 @@ public class TransactionService {
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
-
+	
 }
