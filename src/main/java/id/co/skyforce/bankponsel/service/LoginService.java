@@ -27,25 +27,31 @@ public class LoginService {
 	}
 
 
-	public String login(String email, String password){
-		FacesMessage msg;
-		boolean loggedIn;
-		
+	public void login(String email, String password){
+//		FacesMessage msg;
+//		boolean loggedIn;
+//		
 
-		if(userProfile.getEmail() != null){
-			loggedIn = true;
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", userProfile.getPassword());
-			return "succes";
+//		if(userProfile.getEmail() != null){
+//			loggedIn = true;
+//			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("email", userProfile.getPassword());
+//			return "succes";
+//		}
+//		else{
+//			loggedIn = false;
+//			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
+//			if(this.userProfile == null){
+//				this.userProfile = new UserProfile();
+//			}
+//			FacesContext.getCurrentInstance().addMessage(null, msg);
+//			return null;
+//		}
+			
+		if(email.equals(userProfile.getEmail()) && password.equals(userProfile.getPassword())){
+			
+			
 		}
-		else{
-			loggedIn = false;
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
-			if(this.userProfile == null){
-				this.userProfile = new UserProfile();
-			}
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return null;
-		}
+		
 			}
 	
 	public void loguot(){

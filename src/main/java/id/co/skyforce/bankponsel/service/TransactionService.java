@@ -3,8 +3,11 @@ package id.co.skyforce.bankponsel.service;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+
+
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,7 +30,9 @@ public class TransactionService {
 		Transaction trx = session.beginTransaction();
 		virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, userAccount);
 		
+		
 		if (virtualAccount.getAccountNo() == userAccount) {
+	
 			virtualAccount.setBalance(virtualAccount.getBalance().add(amount));
 			
 			TransactionLog log = new TransactionLog();
@@ -38,9 +43,7 @@ public class TransactionService {
 			session.save(log);
 			
 		}else{
-			String message= "Account Number not Found in Virtual Account";
-			JFrame frame = new JFrame("Error");
-			JOptionPane.showMessageDialog(frame, message);
+			// comment
 		}
 		session.saveOrUpdate(virtualAccount);
 		trx.commit();
@@ -52,16 +55,30 @@ public class TransactionService {
 		Transaction trx = session.beginTransaction();
 		VirtualAccount virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, accountNo);
 		
-		if (accountNo == virtualAccount.getAccountNo()) {
-			virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - amount.doubleValue()));
+		if (accountNo == virtualAccount.getAccountNo()) { // Check Account
 			
-			TransactionLog log = new TransactionLog();
-			log.setTransactionDate(new Date());
-			log.setAmount(amount);
-			log.setDbCr('C');
-			log.setVirtualAccount(virtualAccount);
-			session.save(log);
+			if (virtualAccount.getBalance().doubleValue() > amount.doubleValue()) { // Check Drawing
+				
+				virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() - amount.doubleValue()));
+			
+				TransactionLog log = new TransactionLog();
+				log.setTransactionDate(new Date());
+				log.setAmount(amount);
+				log.setDbCr('C');
+				log.setVirtualAccount(virtualAccount);
+				session.save(log);
+			}else{
+				FacesMessage message = new FacesMessage("Your Drawing is Too Highest");
+				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}	
 		}
+		else{
+			FacesMessage message = new FacesMessage("Account Number Not Found, Please Cek Your Account !");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		
 		session.saveOrUpdate(virtualAccount);
 		trx.commit();
 		session.close();
@@ -74,6 +91,7 @@ public class TransactionService {
 		VirtualAccount account = (VirtualAccount) session.get(VirtualAccount.class, accountNo);
 		VirtualAccount virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, targetAccountNo);
 		if (account.getUserProfile().getUserType().equals('C') && virtualAccount.getUserProfile().getUserType().equals('C')) {
+			
 			if (account.getBalance().doubleValue() > amount.doubleValue()) {
 
 				account.setBalance(new BigDecimal(account.getBalance().doubleValue() - amount.doubleValue()));
@@ -87,15 +105,26 @@ public class TransactionService {
 				session.save(log);
 				
 				virtualAccount.setBalance(new BigDecimal(virtualAccount.getBalance().doubleValue() + amount.doubleValue()));
+			
 				log = new TransactionLog();
 				log.setTransactionDate(new Date());
 				log.setAmount(amount);
 				log.setDbCr('D');
 				log.setVirtualAccount(virtualAccount);
 				session.save(log);
-				
+		
+			}else{
+				FacesMessage message = new FacesMessage("Your Balance Not Enough ");
+				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				FacesContext.getCurrentInstance().addMessage(null, message);
 			}
+		
+		}else{
+			FacesMessage message = new FacesMessage("Transfer Must Be Member To Member ! ");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
+		
 		session.saveOrUpdate(virtualAccount);
 		trx.commit();
 		session.close();

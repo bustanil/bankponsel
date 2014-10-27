@@ -35,7 +35,7 @@ public class LoginController {
 	public String login(){
 		loginService.login(email,password);
 		
-		return "succes";
+		return "userprofile/succes";
 	}
 	
 	public String logout(){
