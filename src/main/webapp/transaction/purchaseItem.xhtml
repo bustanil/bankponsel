@@ -33,20 +33,20 @@
 
 			<h:form>
 			<h:inputHidden value="#{productController.id}" converter="javax.faces.Integer"/>
-			<table>
-				<tr>
+			<table width="80%" border="1">
+				<tr align="center">
 					<td>Product Name</td>
 					<td>
 					<h:inputText value="#{transactionController.nameProduct}" />	
 					</td>
 				</tr>
 				
-				<tr>
+				<tr align="center">
 					<td>Price</td>
 					<td><h:inputText value="#{productController.price}" readonly="true"/></td>
 				</tr>
 				
-				<tr>
+				<tr align="center">
 					<td>
 						<h:commandButton value="buy" action="#{transactionController.purchase}" />
 					</td>
