@@ -30,26 +30,37 @@
 
 		<ui:define name="content">
 			<center>
+	
+				<h:form>
+					<h:dataTable border="1" var="c"
+						value="#{productController.listProduct}">
 
-				<h:dataTable border="1" var="c"
-					value="#{productController.listProduct}">
+						<h:inputHidden value="#{c.id}" name="id"
+							converter="javax.faces.Integer" />
+						<h:column>
+							<f:facet name="header">Product Name</f:facet>
+							<h:outputText value="#{c.name}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Customer Price</f:facet>
+							<h:outputText value="#{c.price}" />
+						</h:column>
+						
+						<h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:link value="Buy" outcome="/transaction/purchaseItem">
+						<f:param name="id" value="#{c.id}" />
+					</h:link>
+				</h:column>
+					</h:dataTable>
+				</h:form>
+
+				
 
 
-					<h:column>
-						<f:facet name="header">Product Name</f:facet>
-						<h:outputText value="#{c.name}" />
-					</h:column>
+				
 
-					<h:column>
-						<f:facet name="header">Customer Price</f:facet>
-						<h:outputText value="#{c.price}" />
-					</h:column>
-					<h:column>
-							<h:link outcome="purchaseItem.xhtml">
-								<f:param name="id" value="#{c.id}" />
-							</h:link>
-					</h:column>
-				</h:dataTable>
 			</center>
 		</ui:define>
 

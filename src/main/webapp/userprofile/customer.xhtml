@@ -17,7 +17,7 @@
 		<ui:define name="menu">
 			<ul class="list-group">
 				<li class="list-group-item"><h:link value="Transfer"
-						outcome="/transaction/transfer" /></li>
+						outcome="/transaction/transfer" > <f:param value="#{userController.userProfile.mobileNo}" name="idUser"/> </h:link></li>
 				<li class="list-group-item"><h:link value="Purchase Item"
 						outcome="/transaction/listItem" /></li>
 			</ul>

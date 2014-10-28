@@ -3,20 +3,31 @@ package id.co.skyforce.bankponsel.controller;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import id.co.skyforce.bankponsel.model.UserProfile;
 import id.co.skyforce.bankponsel.service.TransactionService;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
+@SessionScoped
 public class TransactionController {
+	@ManagedProperty(value ="#{loginController}")
+	private LoginController loginController;
 
-	TransactionService transactionService;
+	TransactionService transactionService = new TransactionService();
 	private String userAccount ;
 	private BigDecimal amount ;
+	UserProfile userProfile ;
 	
-	//
 	private String targetAccountNo;
 	private String nameProduct;
+	private String mobileNo;
+	
+	@ManagedProperty(value ="#{ProductController}")
+	private ProductController productController;
 	
 	public void clear(){
 		userAccount = "";
@@ -42,9 +53,6 @@ public class TransactionController {
 
 	public TransactionController() {
 		transactionService = new TransactionService();
-//		this.userAccount = userAccount;
-//		this.amount = amount;
-//		this.targetAccountNo=targetAccountNo;
 		
 	}
 
@@ -61,15 +69,16 @@ public class TransactionController {
 	}
 
 	public String transfer(){
-		transactionService.transfer(userAccount, targetAccountNo, amount);
 		
-		return "succes";
+		transactionService.transfer(loginController.userProfile.getMobileNo(), targetAccountNo, amount);
+		clear();
+		return "transfer";
 	}
 
 	public String purchase(){
-		transactionService.purchase(nameProduct, userAccount);
-		
-		return "succes";
+		transactionService.purchase(nameProduct, loginController.userProfile.getMobileNo());
+		clear();
+		return "purchaseItem";
 	}
 	
 	
@@ -96,6 +105,40 @@ public class TransactionController {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public LoginController getLoginController() {
+		return loginController;
+	}
+
+	public void setLoginController(LoginController loginController) {
+		this.loginController = loginController;
+	}
+
+	public ProductController getProductController() {
+		return productController;
+	}
+
+	public void setProductController(ProductController productController) {
+		this.productController = productController;
+	}
+
+
 	
 	
 	

@@ -36,7 +36,6 @@ public class LoginService {
         }
     }
     
-
     
     public UserProfile getUserProfile() {
 		return userProfile;

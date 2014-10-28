@@ -14,10 +14,16 @@
 
 		<ui:define name="menu">
 			<ul class="list-group">
-				<li class="list-group-item"><h:link value="Transfer"
-						outcome="/transaction/transfer" /></li>
-				<li class="list-group-item"><h:link value="Purchase Item"
-						outcome="/transaction/listItem" /></li>
+				<li class="list-group-item">
+					<h:link value="Transfer" outcome="/transaction/transfer" >
+						<f:param value="#{loginController.userProfile.mobileNo}"/>
+					</h:link>
+				</li>
+				<li class="list-group-item">
+					<h:link value="Purchase Item" outcome="/transaction/listItem" >
+						<f:param value="#{loginController.userProfile.mobileNo}"/>
+					</h:link>
+				</li>
 			</ul>
 		</ui:define>
 
@@ -27,11 +33,11 @@
 
 		<ui:define name="content">
 			<h:form>
-
 				<table>
-					<h:inputHidden value="#{transactionController.userAccount}" converter="javax.faces.Long"/>
+					
+					
 					<tr>
-						<td><h:outputText value="Account No" />&nbsp;</td>
+						<td><h:outputText value="Account No Destination" />&nbsp;</td>
 
 						<td><h:inputText value="#{transactionController.targetAccountNo}" />
 						</td>
@@ -43,13 +49,11 @@
 					</tr>
 
 					<tr>
-						<td colspan="2"><h:selectBooleanCheckbox required="true" />&nbsp;Transfering
-							to other account</td>
-					</tr>
-
-					<tr>
-						<td><h:commandButton value="Transfer"
-								action="#{transactionController.transfer}" /></td>
+						<td>
+							<h:commandButton value="Transfer" action="#{transactionController.transfer}" >
+							</h:commandButton>
+			
+						</td>
 					</tr>
 				</table>
 			</h:form>

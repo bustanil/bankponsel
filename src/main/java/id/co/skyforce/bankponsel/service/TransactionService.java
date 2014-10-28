@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -12,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import id.co.skyforce.bankponsel.controller.LoginController;
 import id.co.skyforce.bankponsel.model.Product;
 import id.co.skyforce.bankponsel.model.TransactionLog;
 import id.co.skyforce.bankponsel.model.UserProfile;
@@ -31,7 +33,7 @@ public class TransactionService {
 		virtualAccount = (VirtualAccount) session.get(VirtualAccount.class, userAccount);
 		session.close();
 		
-if (virtualAccount == null) {
+		if (virtualAccount == null) {
 			
 			message = new FacesMessage("Account Number Not Found");
 			message.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -117,7 +119,7 @@ if (virtualAccount == null) {
 		
 	}
 	
-	public static void transfer(String accountNo,String targetAccountNo, BigDecimal amount){
+	public void transfer(String accountNo,String targetAccountNo, BigDecimal amount){
 		Session session = HibernateUtil.openSession();
 		Transaction trx = session.beginTransaction();
 		
@@ -145,7 +147,9 @@ if (virtualAccount == null) {
 				log.setDbCr('D');
 				log.setVirtualAccount(virtualAccount);
 				session.save(log);
-		
+				message = new FacesMessage("Transfer  Success ");
+				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				FacesContext.getCurrentInstance().addMessage(null, message);
 			}else{
 				message = new FacesMessage("Your Balance Not Enough ");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -191,6 +195,12 @@ if (virtualAccount == null) {
 		
 		session.save(log);
 		session.saveOrUpdate(virtualAccount);
+		
+		
+		message = new FacesMessage("Purchase Success");
+		message.setSeverity(FacesMessage.SEVERITY_INFO);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		
 		trx.commit();
 		session.close();
 	}

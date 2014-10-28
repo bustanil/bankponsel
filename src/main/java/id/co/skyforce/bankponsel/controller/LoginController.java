@@ -7,6 +7,7 @@ import id.co.skyforce.bankponsel.service.LoginService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -14,14 +15,24 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class LoginController implements Serializable{
+//	@ManagedProperty (value ="#{transactionController}")
+//	private TransactionController transactionController;
+//	
+//    public TransactionController getTransactionController() {
+//		return transactionController;
+//	}
+//
+//	public void setTransactionController(TransactionController transactionController) {
+//		this.transactionController = transactionController;
+//	}
 
-    public static String test = "Test";
+	public static String test = "Test";
     
     private String email;
     private String password;
     String url;
     UserProfile userProfile = new UserProfile();
-
+    
     public String login(){
     	LoginService loginService = new LoginService();
         boolean result = loginService.login(email, password);
@@ -56,7 +67,7 @@ public class LoginController implements Serializable{
         ls.logout();
         userProfile = null;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(test);
-        return "/index"; 
+        return "/index?faces-redirect=true"; 
     }
 
     public boolean isLoggedIn(){
@@ -80,6 +91,14 @@ public class LoginController implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
 
 
     
